@@ -201,11 +201,14 @@ Execute the reconciliation audit and materialize the results into a dedicated co
 bq query \
   --use_legacy_sql=false \
   < src/02_meter_account_reconciliation_audit.sql
-
+```
+```text
 # (Optional) Materialize audit results into a dedicated audit ledger table
 bq query \
   --use_legacy_sql=false \
-  --destination_table=gridmatrix_energy.daily_meter_reconciliation_audit_$(date +%Y%m%d) \
+```
+```text --destination_table=gridmatrix_energy.daily_meter_reconciliation_audit_$(date +%Y%m%d) \
   --write_disposition=WRITE_TRUNCATE \
   < src/02_meter_account_reconciliation_audit.sql
+```
 ```
