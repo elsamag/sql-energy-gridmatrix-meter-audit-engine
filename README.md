@@ -162,13 +162,13 @@ Ensure the executing identity has the appropriate Google Cloud IAM roles and loc
 
 **2. Clone Repository & Environment Setup**
 ```text
-# 1. Clone the enterprise repository
+ 1. Clone the enterprise repository
 git clone https://github.com/Elsamag/sql-energy-gridmatrix-meter-audit-engine.git
 
-# 2. Navigate to the project root directory
+ 2. Navigate to the project root directory
 cd sql-energy-gridmatrix-meter-audit-engine
 
-# 3. Verify directory contents and file permissions
+ 3. Verify directory contents and file permissions
 ls -la src/
 ```
 **3. Google Cloud Authentication & Project Configuration**
@@ -182,4 +182,30 @@ gcloud config set project gridmatrix-energy-prod
 
  3. Verify dataset accessibility
 bq ls gridmatrix-energy-prod:gridmatrix_energy
+```
+
+**4. Dry-Run Scan Volume & Cost Validation**
+​Before triggering production queries on multi-million row telemetry partitions, execute a dry run to verify partition-pruning boundary rules and evaluate byte scan limits:
+```bash
+bq query \
+  --use_legacy_sql=false \
+  --dry_run \
+  < src/02_meter_account_reconciliation_audit.sql
+```
+**Target Benchmark**: Dry-run scan size should confirm approximately ~25.20 GB (reflecting a 98%+ reduction compared to full unpartitioned table scans).
+
+**5. Production Execution & Materialization**
+Execute the reconciliation audit and materialize the results into a dedicated compliance dataset for operational reporting:
+```text
+# Execute query and print results directly to console
+bq query \
+  --use_legacy_sql=false \
+  < src/02_meter_account_reconciliation_audit.sql
+
+# (Optional) Materialize audit results into a dedicated audit ledger table
+bq query \
+  --use_legacy_sql=false \
+  --destination_table=gridmatrix_energy.daily_meter_reconciliation_audit_$(date +%Y%m%d) \
+  --write_disposition=WRITE_TRUNCATE \
+  < src/02_meter_account_reconciliation_audit.sql
 ```
