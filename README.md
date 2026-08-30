@@ -145,7 +145,7 @@ sql-energy-gridmatrix-meter-audit-engine/
 
 ​This guide provides end-to-end instructions for deploying, validating, and executing the **GridMatrix Systems Smart Meter Relational Integrity & Reconciliation Engine** on Google Cloud BigQuery.
 
-**1. Prerequisites & Access Provisioning**
+### 1. Prerequisites & Access Provisioning.
 Ensure the executing identity has the appropriate Google Cloud IAM roles and local tooling installed:
 
 •**Google Cloud SDK (gcloud CLI)**: Version 450.0.0+ installed.
@@ -160,7 +160,7 @@ Ensure the executing identity has the appropriate Google Cloud IAM roles and loc
 
 •roles/bigquery.dataEditor (if writing audit outputs to a target destination table)
 
-**2. Clone Repository & Environment Setup**
+### 2. Clone Repository & Environment Setup.
 ```text
  1. Clone the enterprise repository
 git clone https://github.com/Elsamag/sql-energy-gridmatrix-meter-audit-engine.git
@@ -171,7 +171,7 @@ cd sql-energy-gridmatrix-meter-audit-engine
  3. Verify directory contents and file permissions
 ls -la src/
 ```
-**3. Google Cloud Authentication & Project Configuration**
+### 3. Google Cloud Authentication & Project Configuration.
 
 ```text
  1. Authenticate with Google Cloud
@@ -184,7 +184,7 @@ gcloud config set project gridmatrix-energy-prod
 bq ls gridmatrix-energy-prod:gridmatrix_energy
 ```
 
-**4. Dry-Run Scan Volume & Cost Validation**
+### 4. Dry-Run Scan Volume & Cost Validation.
 ​Before triggering production queries on multi-million row telemetry partitions, execute a dry run to verify partition-pruning boundary rules and evaluate byte scan limits:
 ```bash
 bq query \
@@ -194,7 +194,7 @@ bq query \
 ```
 **Target Benchmark**: Dry-run scan size should confirm approximately ~25.20 GB (reflecting a 98%+ reduction compared to full unpartitioned table scans).
 
-**5. Production Execution & Materialization**
+### 5. Production Execution & Materialization.
 Execute the reconciliation audit and materialize the results into a dedicated compliance dataset for operational reporting:
 ```text
 # Execute query and print results directly to console
@@ -211,4 +211,18 @@ bq query \
   --write_disposition=WRITE_TRUNCATE \
   < src/02_meter_account_reconciliation_audit.sql
 ```
+### 6. Output Verification & Metric Check.
+​Verify that orphan records and verified accounts are categorized accurately:
+```bash
+ Query the generated audit summary table
+bq query \
+  --use_legacy_sql=false \
+  "SELECT 
+     audit_status, 
+     SUM(total_meters_audited) AS total_meters, 
+     ROUND(SUM(total_aggregated_kwh), 2) AS total_kwh 
+   FROM 
+     \`gridmatrix_energy.daily_meter_reconciliation_audit_$(date +%Y%m%d)\` 
+   GROUP BY 1 
+   ORDER BY 2 DESC;"
 ```
