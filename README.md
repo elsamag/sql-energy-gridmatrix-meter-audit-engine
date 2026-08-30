@@ -141,3 +141,19 @@ sql-energy-gridmatrix-meter-audit-engine/
     ├── README.pdf
     └── README-PLAYBOOK.pdf
 ```
+**Step-by-Step Deployment & Execution Guide**
+
+​This guide provides end-to-end instructions for deploying, validating, and executing the **GridMatrix Systems Smart Meter Relational Integrity & Reconciliation Engine** on Google Cloud BigQuery.
+
+**1. Prerequisites & Access Provisioning**
+Ensure the executing identity has the appropriate Google Cloud IAM roles and local tooling installed:
+
+•**Google Cloud SDK (gcloud CLI)**: Version 450.0.0+ installed.
+•**BigQuery CLI (bq)**: Installed and accessible via the system $PATH.
+•**IAM Role Requirements**:
+
+•roles/bigquery.jobUser (to submit query jobs)
+
+•roles/bigquery.dataViewer (on the gridmatrix_energy dataset)
+
+•roles/bigquery.dataEditor (if writing audit outputs to a target destination table)
