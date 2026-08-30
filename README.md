@@ -226,3 +226,4 @@ bq query \
    GROUP BY 1 
    ORDER BY 2 DESC;"
 ```
+Any records tagged as ORPHAN_METER_UNLINKED are immediately flagged for upstream account-provisioning investigation.
