@@ -149,7 +149,9 @@ sql-energy-gridmatrix-meter-audit-engine/
 Ensure the executing identity has the appropriate Google Cloud IAM roles and local tooling installed:
 
 •**Google Cloud SDK (gcloud CLI)**: Version 450.0.0+ installed.
+
 •**BigQuery CLI (bq)**: Installed and accessible via the system $PATH.
+
 •**IAM Role Requirements**:
 
 •roles/bigquery.jobUser (to submit query jobs)
