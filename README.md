@@ -159,3 +159,27 @@ Ensure the executing identity has the appropriate Google Cloud IAM roles and loc
 •roles/bigquery.dataViewer (on the gridmatrix_energy dataset)
 
 •roles/bigquery.dataEditor (if writing audit outputs to a target destination table)
+
+**2. Clone Repository & Environment Setup**
+```text
+# 1. Clone the enterprise repository
+git clone https://github.com/Elsamag/sql-energy-gridmatrix-meter-audit-engine.git
+
+# 2. Navigate to the project root directory
+cd sql-energy-gridmatrix-meter-audit-engine
+
+# 3. Verify directory contents and file permissions
+ls -la src/
+```
+**3. Google Cloud Authentication & Project Configuration**
+
+```text
+ 1. Authenticate with Google Cloud
+gcloud auth application-default login
+
+ 2. Set active GCP project containing the GridMatrix infrastructure
+gcloud config set project gridmatrix-energy-prod
+
+ 3. Verify dataset accessibility
+bq ls gridmatrix-energy-prod:gridmatrix_energy
+```
