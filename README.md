@@ -31,6 +31,7 @@ To eliminate data leakage and ensure 100% relational integrity across GridMatrix
 3. **Deterministic Hash Masking:** Enforces cryptographic SHA-256 hashing across all customer identifiers to maintain strict regulatory compliance and zero raw PII exposure.
 4. **Automated Reconciliation Tiers:** Structures data flow across Common Table Expressions (CTEs) isolating base telemetry, verified mappings, orphan anomaly logs, and aggregated billing metrics.
 
+```text
 -- ============================================================================
 -- Enterprise Practice: Elsamag IT Solutions
 -- Author & Lead Technical Consultant: Samuel Chinwendu Agu
@@ -100,6 +101,7 @@ ORDER BY
   audit_status DESC,
   total_aggregated_kwh DESC;
 ```
+
 ##  Empirical Performance Metrics & Live Terminal Preview
 
 ### Benchmark Metrics
