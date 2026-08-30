@@ -227,3 +227,18 @@ bq query \
    ORDER BY 2 DESC;"
 ```
 Any records tagged as ORPHAN_METER_UNLINKED are immediately flagged for upstream account-provisioning investigation.
+
+> ### 💼 Enterprise Data Infrastructure & Audit Inquiries
+> **Elsamag IT Solutions** specializes in high-throughput SQL query optimization, relational database integrity audits, and enterprise BigQuery analytics engineering.
+>
+> **Lead Technical Consultant:** Samuel Chinwendu Agu  
+> **GitHub Profile:** [@Elsamag](https://github.com/Elsamag)  
+> **Inquiries & Retainers:** To initiate an enterprise database audit or retain our consulting practice for mission-critical infrastructure optimization, open a project chat or contact via our GitHub profile.
+
+---
+
+### ⭐ Support & Feedback
+
+If this project or repository helped you optimize your infrastructure or solve a technical bottleneck, please give it a **Star (⭐)** on GitHub!
+
+Follow **[Samuel Chinwendu Agu (@Elsamag)](https://github.com/Elsamag)** for upcoming open-source enterprise analytics, cybersecurity, and data engineering tools.
